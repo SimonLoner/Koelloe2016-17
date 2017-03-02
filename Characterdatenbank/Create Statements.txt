@@ -1,0 +1,45 @@
+DROP DATABASE IF EXISTS CharacterDatenbank;
+CREATE DATABASE IF NOT EXISTS CharacterDatenbank;
+USE CharacterDatenbank;
+
+
+CREATE TABLE CharacterClass(
+classID INT NOT NULL,
+name VARCHAR(20) NOT NULL,
+skill1 VARCHAR(20) NOT NULL,
+skill2 VARCHAR(20) NOT NULL,
+move INT NOT NULL,
+PRIMARY KEY(classID)
+);
+
+CREATE TABLE PlayableCharacter(
+characterID INT ,
+classID INT NOT NULL,
+name VARCHAR(20) NOT NULL,
+strength INT NOT NULL,
+magic INT NOT NULL,
+skill INT NOT NULL,
+speed INT NOT NULL,
+defense INT NOT NULL,
+resistance INT NOT NULL,
+PRIMARY KEY(characterID),
+FOREIGN KEY(classID) REFERENCES CharacterClass(classID)
+);
+
+CREATE TABLE Weapon(
+weaponID INT NOT NULL,
+name VARCHAR(20) NOT NULL,
+type VARCHAR(20) NOT NULL,
+might INT NOT NULL,
+wrange VARCHAR(3) NOT NULL,
+crit INT NOT NULL,
+accuracy INT NOT NULL,
+PRIMARY KEY(weaponID)
+);
+
+CREATE TABLE UsableWeapons(
+classID INT NOT NULL,
+weaponID INT NOT NULL,
+FOREIGN KEY(classID) REFERENCES CharacterClass (classID),
+FOREIGN KEY(weaponID) REFERENCES Weapon(weaponID)
+);
